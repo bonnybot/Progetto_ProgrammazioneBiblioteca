@@ -15,13 +15,13 @@ Questo progetto si compone di due assegnamenti successivi per la creazione di un
 ## 📂 Struttura del Progetto
 ```
 📁 progetto_biblioteca
- ├── 📁 parte1
+ ├── 📁 1° assegnamento
  │   ├── main.py              # Script principale
  │   ├── biblio.py            # Modulo con funzioni di gestione
  │   ├── testMy.py            # Script di test
  │   ├── README               # Istruzioni originali
  │   └── biblio.pdf           # Documentazione
- ├── 📁 parte2
+ ├── 📁 2° assegnamento
  │   ├── gui.py               # Interfaccia grafica
  │   └── babs.py              # Funzioni di supporto
  └── 📄 README.md              # Questo file
