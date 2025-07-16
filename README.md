@@ -7,7 +7,7 @@ Questo progetto si compone di due assegnamenti successivi per la creazione di un
 - Il **secondo assegnamento** estende il progetto con una **interfaccia grafica** per facilitare l'interazione con l'utente.
 
 ## 🚀 Tecnologie Utilizzate
-- **Python 3.x**
+- **Python**
 - **Tkinter** (per GUI)
 - File handling (.txt/.json)
 
