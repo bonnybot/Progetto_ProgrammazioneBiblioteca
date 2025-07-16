@@ -14,7 +14,7 @@ Questo progetto si compone di due assegnamenti successivi per la creazione di un
 
 ## 📂 Struttura del Progetto
 ```
-📁 progetto_biblioteca
+📁 Progetto_ProgrammazioneBiblioteca
  ├── 📁 1° assegnamento
  │   ├── main.py              # Script principale
  │   ├── biblio.py            # Modulo con funzioni di gestione
