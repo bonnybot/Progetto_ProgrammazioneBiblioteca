@@ -9,7 +9,6 @@ Questo progetto si compone di due assegnamenti successivi per la creazione di un
 ## 🚀 Tecnologie Utilizzate
 - **Python**
 - **Tkinter** (per GUI)
-- File handling (.txt/.json)
 
 ---
 
