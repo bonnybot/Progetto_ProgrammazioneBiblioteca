@@ -1,6 +1,3 @@
-# Alessandra Bottiglieri 648769 a.bottiglieri1@studenti.unipi.it
-# Giorgia Cestaro 620023 g.cestaro@studenti.unipi.it
-
 def inserisci(cat,cognome,nome,titolo,anno,collocazione,note=""):
     """ Inserisce un nuovo record (libro) nel catalogo controllando che i tipi dei
     parametri attuali siano corretti -- non modifica maiuscole e minuscole dei parametri
@@ -191,4 +188,5 @@ def ordina(cat):
             if libro1 > libro2:
                 cat[j], cat[j + 1] = cat[j + 1], cat[j]
     return None
+
 
