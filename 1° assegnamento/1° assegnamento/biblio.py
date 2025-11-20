@@ -1,4 +1,7 @@
-def inserisci(cat,cognome,nome,titolo,anno,collocazione,note=[]):
+# Alessandra Bottiglieri 648769 a.bottiglieri1@studenti.unipi.it
+# Giorgia Cestaro 620023 g.cestaro@studenti.unipi.it
+
+def inserisci(cat,cognome,nome,titolo,anno,collocazione,note=""):
     """ Inserisce un nuovo record (libro) nel catalogo controllando che i tipi dei
     parametri attuali siano corretti -- non modifica maiuscole e minuscole dei parametri
     :param cat: il catalogo da modificare
@@ -12,7 +15,17 @@ def inserisci(cat,cognome,nome,titolo,anno,collocazione,note=[]):
     altrimenti
     :return: None se i parametri non hanno il tipo corretto
     """
-    pass #istruzione che non fa niente --> da sostituire con il codice
+    tupla = (cognome, nome, titolo, anno, collocazione, note)
+    if (type(cognome) or type(nome) or type(titolo) or type(note)) != str:
+        return None
+    elif type(anno) != int:
+        return None
+    elif type(collocazione) != tuple:
+        if (type(collocazione[0]) != str) or (type(collocazione[1]) != int):
+            return None
+    else:
+        cat.append(tupla)
+        return True
 
 
 def serializza (cat):
@@ -24,15 +37,23 @@ def serializza (cat):
     :param cat: il catalogo da serializzare
     :return: una stringa che rappresenta il catalogo
     """
-    pass #istruzione che non fa niente --> da sostituire con il codice
+    count = 1
+    string = []
 
+    for i in cat:
+        string = "Libro numero " + str(count) + ": " + str(i)
+        count += 1
+
+    return string
 
 def crea_copia(cat):
     """ Crea una copia completa del catalogo cat (un clone) e lo restituisce
     :param cat: il catalogo da clonare
     :return: il nuovo catalogo clonato
     """
-    pass #istruzione che non fa niente --> da sostituire con il codice
+    catcopy = cat[:]
+
+    return catcopy
 
 
 def sono_uguali(cat1,cat2):
@@ -44,7 +65,23 @@ def sono_uguali(cat1,cat2):
     :param cat2: secondo catalogo da confrontare
     :return: True se sono uguali, False altrimenti
     """
-    pass  # istruzione che non fa niente --> da sostituire con il codice
+    x = [x[:3] for x in cat1]  # esclude collocazione e nota
+    y = [x[:3] for x in cat2]
+
+    if set(x) == set(y):  # set crea un insieme disordinato delle liste
+        return True
+    else:
+        return False
+
+
+def concatenamento_lessicografico(x, y):
+
+    if x < y:
+        result = x + " " + y
+    else:
+        result = y + " " + x
+
+    return result
 
 
 def concatena(cat1,cat2):
@@ -56,8 +93,29 @@ def concatena(cat1,cat2):
     :param cat2: secondo catalogo da unire (non viene modificato)
     :return: il nuovo catalogo
     """
+    cat = cat1 + cat2
+    cat_without_note = [x[:5] for x in cat]
 
-    pass  # istruzione che non fa niente --> da sostituire con il codice
+    cat_finale = []
+    tupla_letta = []
+
+    for i in range(len(cat_without_note)):
+        book = cat_without_note[i]
+        # se il record non è stato ancora letto
+        if book not in tupla_letta:
+            # controlliamo se c'è un duplicato
+            if cat_without_note.count(book) > 1:
+                # ripeschiamo l'indice del duplicato partendo dalla posizione seguente
+                j = cat_without_note[i + 1:].index(book) + i + 1
+                # concateniamo le note richiamando la funzione
+                nota_unita = concatenamento_lessicografico(cat[i][5], cat[j][5])
+                # aggiungiamo il libro con le note concatenate
+                cat_finale.append((book[0], book[1], book[2], book[3], book[4], nota_unita))
+            else:
+                cat_finale.append(cat[i])
+
+            tupla_letta.append(book)
+    return cat_finale
 
 
 def cancella(cat,  titolo, anno=None):
@@ -69,17 +127,46 @@ def cancella(cat,  titolo, anno=None):
     :return: il numero dei record cancellati
     :return: None se i parametri non hanno il tipo corretto
     """
-    pass  # istruzione che non fa niente --> da sostituire con il codice
+    count = 0
+    titolo = titolo.lower()
+
+    if type(titolo) != str:
+        return None
+    if anno != None and type(anno) != int:
+        return None
+
+    for i in cat:
+        if anno != None:
+            # se anno e titolo nel catalogo coincidono con i parametri cancelliamo il record
+            if i[2].lower() == titolo and i[3] == anno:
+                cat.remove(i)
+                count += 1
+        else:  # altrimenti se coincide solo il titolo rimuoviamo ugualmente il record
+            if i[2].lower() == titolo:
+                cat.remove(i)
+                count += 1
+    return count
+
 
 def cerca(cat, pctitolo):
-    """Verifica che esista almeno un titolo che contiene la stringa pctitolo come sottoscringa (attenzione agli spazi bianchi
+    """Verifica che esista almeno un titolo che contiene la stringa pctitolo come sottostringa (attenzione agli spazi bianchi
      e a maiuscole e minuscole)
     :param cat: il catalogo (non viene modificato)
     :param pctitolo: la sottostringa che deve comparire nel titolo del libro
     :return: True se c'è almeno un record che contiene pctitolo, False altrimenti
     :return: None se i parametri non hanno il tipo corretto
     """
-    pass  # instruzione che non fa niente --> da sostituire con il codice
+    result = False
+
+    if (type(pctitolo) != str) or pctitolo.isspace() or (pctitolo == ""):
+        return None
+    for i in cat:
+        # rendiamo tutte le stringhe minuscole e verifichiamo se la sottostringa è presente nel catalogo
+        if pctitolo.lower() in i[2].lower():
+            result = True
+        else:
+            continue
+    return result
 
 def ordina(cat):
     """ Ordina il catalogo alfabeticamente per cognome e nome e
@@ -93,5 +180,15 @@ def ordina(cat):
     :param cat: il catalogo da ordinare
     :return: None (la funzione modifica il catalogo e non restituisce niente)
     """
-    pass  # instruzione che non fa niente --> da sostituire con il codice
+    n = len(cat)
+    # utilizziamo bubble sort per l'ordinamento
+    # quindi si confrontano i record vicini tra loro portando sempre il maggiore in ultima posizione
+    # poi si procede a ritroso finché il catalogo non è ordinato
+    for i in range(n - 1):
+        for j in range(0, n - i - 1):
+            libro1 = (cat[j][0], cat[j][1], cat[j][3], cat[j][2], cat[j][4], cat[j][5])
+            libro2 = (cat[j + 1][0], cat[j + 1][1], cat[j + 1][3], cat[j + 1][2], cat[j + 1][4], cat[j + 1][5])
+            if libro1 > libro2:
+                cat[j], cat[j + 1] = cat[j + 1], cat[j]
+    return None
 
