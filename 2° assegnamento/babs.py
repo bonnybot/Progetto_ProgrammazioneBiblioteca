@@ -1,7 +1,3 @@
-# Alessandra Bottiglieri 648769 a.bottiglieri1@studenti.unipi.it
-# Giorgia Cestaro 620023 g.cestaro@studenti.unipi.it
-
-
 class Libro:
     def __init__(self,cognome,nome,titolo,anno,collocazione,iban,note=""):
         """ Crea un nuovo oggetto Libro
@@ -129,4 +125,5 @@ class Catalogo:
         :return: True se sono uguali, False altrimenti
         """
         # verifichiamo l'uguaglianza tra i due cataloghi riordinati
+
         return sorted(self.cat.keys()) == sorted(cat2.cat.keys())
