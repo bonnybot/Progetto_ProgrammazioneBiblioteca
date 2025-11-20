@@ -1,6 +1,3 @@
-# Alessandra Bottiglieri 648769 a.bottiglieri1@studenti.unipi.it
-# Giorgia Cestaro 620023 g.cestaro@studenti.unipi.it
-
 import tkinter as tk
 from tkinter import messagebox as mb
 from babs import *
